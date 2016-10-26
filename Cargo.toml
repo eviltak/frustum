@@ -1,0 +1,7 @@
+[package]
+name = "frustum"
+version = "0.1.0"
+authors = ["Arav Singhal <singhal.arav@gmail.com>"]
+
+[dependencies]
+syntex_syntax = "^0.46.0"

@@ -27,4 +27,17 @@ pub struct Function {
 
     pub args: Vec<TypedItem>,
     pub return_type: Type,
+    pub body: Block,
+}
+
+pub struct Block {
+    pub span: Span,
+
+    pub statements: Vec<Statement>,
+}
+
+pub struct Statement {
+    pub span: Span,
+
+    // TODO: Complete definition
 }

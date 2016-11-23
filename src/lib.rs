@@ -8,5 +8,3 @@ pub mod items;
 pub mod pos;
 
 mod internal;
-
-mod scout;

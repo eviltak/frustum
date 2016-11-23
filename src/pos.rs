@@ -3,6 +3,7 @@
 
 // Span
 
+#[derive(Default)]
 pub struct Span {
     pub start: Position,
     pub end: Position,
@@ -14,7 +15,7 @@ pub struct Span {
 
 use std::ops::{Add, Sub};
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, Debug, Default)]
 pub struct Position(pub usize);
 
 impl Position {

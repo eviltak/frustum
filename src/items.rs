@@ -9,11 +9,13 @@ pub enum Item {
     Fn(Function),
 }
 
+#[derive(Default)]
 pub struct Type {
     pub name: String,
     pub span: Span,
 }
 
+#[derive(Default)]
 pub struct TypedItem {
     pub name: String,
     pub span: Span,
@@ -21,6 +23,7 @@ pub struct TypedItem {
     pub ty: Type,
 }
 
+#[derive(Default)]
 pub struct Function {
     pub name: String,
     pub span: Span,
@@ -30,12 +33,14 @@ pub struct Function {
     pub body: Block,
 }
 
+#[derive(Default)]
 pub struct Block {
     pub span: Span,
 
     pub statements: Vec<Statement>,
 }
 
+#[derive(Default)]
 pub struct Statement {
     pub span: Span,
 

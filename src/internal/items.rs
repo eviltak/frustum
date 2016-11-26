@@ -7,6 +7,21 @@ use pos;
 
 use syntax;
 
+pub fn mod_from_ast_mod(module: &syntax::ast::Mod, sess: &syntax::parse::ParseSess) -> Module {
+    let mut conv_items = Vec::new();
+
+    for item in &module.items {
+        if let Some(converted) = item_from_ast_item(item, sess) {
+            conv_items.push(converted);
+        }
+    }
+
+    Module {
+        items: conv_items,
+        ..Default::default()
+    }
+}
+
 pub fn item_from_ast_item(item: &syntax::ast::Item, sess: &syntax::parse::ParseSess) -> Option<Item> {
     let name = (&item.ident.name.as_str()).to_string();
     let span = internal::pos::span_from_ast_span(&item.span, sess);
@@ -37,6 +52,7 @@ pub fn block_from_ast_block(block: &syntax::ast::Block, sess: &syntax::parse::Pa
 }
 
 pub fn statement_from_ast_stmt(stmt: &syntax::ast::Stmt, sess: &syntax::parse::ParseSess) -> Statement {
+    // TODO: Complete definition
     Statement {
         span: internal::pos::span_from_ast_span(&stmt.span, sess),
     }

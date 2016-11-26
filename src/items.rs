@@ -7,6 +7,15 @@ pub enum Item {
     Type(Type),
     Typed(TypedItem),
     Fn(Function),
+    Mod(Module),
+}
+
+#[derive(Default)]
+pub struct Module {
+    pub name: String,
+    pub span: Span,
+
+    pub items: Vec<Item>,
 }
 
 #[derive(Default)]

@@ -18,7 +18,7 @@ pub fn mod_from_ast_mod(module: &syntax::ast::Mod, sess: &syntax::parse::ParseSe
 
     Module {
         items: conv_items,
-        ..Default::default()
+        .. Default::default()
     }
 }
 
@@ -40,7 +40,7 @@ pub fn fn_from_ast_fn(decl: &syntax::ast::FnDecl, block: &syntax::ast::Block, se
     // TODO: Complete definition
     Function {
         body: block_from_ast_block(block, sess),
-        ..Default::default()
+        .. Default::default()
     }
 }
 

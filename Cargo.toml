@@ -4,5 +4,5 @@ version = "0.0.1"
 authors = ["Arav Singhal <singhal.arav@gmail.com>"]
 
 [dependencies]
-syntex_syntax = "^0.48.0"
-syntex_pos = "^0.48.0"
+syntex_syntax = "^0.52.0"
+syntex_pos = "^0.52.0"

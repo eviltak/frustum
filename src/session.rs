@@ -2,6 +2,13 @@
 // Copyright (c) 2016 Arav Singhal.
 
 use syntax;
+use syntax_errors;
+
+use ::internal::parse::SessionFileLoader;
+
+use std::rc::Rc;
+use std::cell::RefCell;
+use std::collections::HashSet;
 
 pub struct Session {
     // TODO: Complete definition
@@ -9,13 +16,27 @@ pub struct Session {
     pub parse_sess: syntax::parse::ParseSess,
 
     crate_root: Option<String>,
+    files: Rc<RefCell<HashSet<String>>>,
 }
 
 impl Session {
     pub fn new() -> Session {
+
+        let file_loader = Box::new(SessionFileLoader::new());
+
+        let files = file_loader.as_ref().files.clone();
+
+        let codemap = Rc::new(syntax::codemap::CodeMap::with_file_loader(file_loader));
+
+        let handler = syntax_errors::Handler::with_tty_emitter(syntax_errors::ColorConfig::Auto,
+                                                               true,
+                                                               false,
+                                                               Some(codemap.clone()));
+
         Session {
-            parse_sess: syntax::parse::ParseSess::new(),
+            parse_sess: syntax::parse::ParseSess::with_span_handler(handler, codemap),
             crate_root: None,
+            files: files,
         }
     }
 
@@ -27,7 +48,8 @@ impl Session {
     }
 
     pub fn add_file(&self, name: String, source: String) {
-        self.parse_sess.codemap().new_filemap(name, None, source);
+        self.parse_sess.codemap().new_filemap(name.clone(), None, source);
+        self.files.borrow_mut().insert(name);
     }
 
     pub fn parse_as_crate(&self) {

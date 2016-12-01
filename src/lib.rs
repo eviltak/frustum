@@ -3,6 +3,7 @@
 
 extern crate syntex_syntax as syntax;
 extern crate syntex_pos as syntax_pos;
+extern crate syntex_errors as syntax_errors;
 
 // Modules
 

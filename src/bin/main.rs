@@ -25,7 +25,5 @@ fn main() {
 
     println!("{:?}", path);
 
-    println!("{:?}", std::fs::metadata(&path).is_ok());
-
     println!("{:?}", session.parse_sess.codemap().file_exists(&path));
 }

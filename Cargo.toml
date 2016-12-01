@@ -6,3 +6,4 @@ authors = ["Arav Singhal <singhal.arav@gmail.com>"]
 [dependencies]
 syntex_syntax = "^0.52.0"
 syntex_pos = "^0.52.0"
+syntex_errors = "^0.52.0"

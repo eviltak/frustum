@@ -11,6 +11,14 @@ pub enum Item {
 }
 
 #[derive(Default)]
+pub struct Crate {
+    pub name: String,
+    pub span: Span,
+
+    pub module: Module, 
+}
+
+#[derive(Default)]
 pub struct Module {
     pub name: String,
     pub span: Span,

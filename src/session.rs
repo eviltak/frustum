@@ -5,6 +5,8 @@ use syntax;
 use syntax_errors;
 
 use ::internal::session::{SessionFileLoader, SessionFileManager};
+use ::internal::items;
+use items::Crate;
 
 use std::rc::Rc;
 use std::cell::RefCell;
@@ -12,8 +14,7 @@ use std::collections::HashSet;
 
 pub struct Session {
     // TODO: Complete definition
-    // TODO: Make private
-    pub parse_sess: syntax::parse::ParseSess,
+    parse_sess: syntax::parse::ParseSess,
 
     crate_root: Option<String>,
     file_manager: Rc<RefCell<SessionFileManager>>,
@@ -25,11 +26,12 @@ impl Session {
         self.file_manager.borrow_mut().add_file(name, source);
     }
 
-    pub fn parse_as_crate(&self) {
+    pub fn parse_as_crate(&self) -> Option<Crate> {
         if self.crate_root.is_none() {
             // TODO: Error handling
             panic!("No crate root defined!");
         }
+
         let mut parser =
             syntax::parse::filemap_to_parser(&self.parse_sess,
                                              self.parse_sess
@@ -38,10 +40,11 @@ impl Session {
                                                  .unwrap());
 
         match parser.parse_crate_mod() {
-            Ok(_) => println!("Success"),
+            Ok(krate) => Some(items::crate_from_ast_crate(&krate, &self.parse_sess)),
             Err(mut e) => {
                 e.emit();
                 e.cancel();
+                None
             }
         }
     }

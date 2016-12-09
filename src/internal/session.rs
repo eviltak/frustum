@@ -24,7 +24,6 @@ impl SessionFileManager {
     }
 
     pub fn load_file(&self, path: &Path) -> io::Result<String> {
-        println!("Loading file");
         self.files
             .get(&path.to_str().unwrap_or("").to_string())
             .map(|s| s.clone())

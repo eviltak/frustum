@@ -12,6 +12,7 @@ pub mod pos;
 
 mod internal;
 mod session;
+mod fs;
 
 // Public uses
 

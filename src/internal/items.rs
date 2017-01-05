@@ -43,9 +43,13 @@ pub fn item_from_ast_item(item: &syntax::ast::Item, sess: &syntax::parse::ParseS
             Some(Item::Fn(func))
         }
         syntax::ast::ItemKind::Mod(ref module) => {
-            let mut conv_module = mod_from_ast_mod(module, sess);
+            let mut conv_module = mod_from_ast_mod(module, sess);;
             conv_module.name = name; conv_module.span = span;
             Some(Item::Mod(conv_module))
+        }
+        syntax::ast::ItemKind::Use(_) => {
+            // TODO: Complete definition
+            Some(Item::Use)
         }
         _ => None,
     }

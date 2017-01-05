@@ -9,6 +9,7 @@ extern crate syntex_errors as syntax_errors;
 
 pub mod items;
 pub mod pos;
+pub mod parser;
 
 mod internal;
 mod session;

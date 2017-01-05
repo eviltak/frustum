@@ -7,15 +7,6 @@ extern crate syntex_pos as syntax_pos;
 
 fn main() {
     println!("Hello, frustum!");
-
-    // TODO: Move tests to tests/*.rs
-    let session = frustum::Session::new_from_crate_root("src/lib.rs".to_string(),
-                                                        "mod somemod;".to_string());
-    session.add_file("src/somemod.rs".to_string(), "fn some() {} fn some_other() {".to_string());
-
-    let krate = session.parse_as_crate().unwrap();
-
-    println!("{:?}", krate.module.items.len());
 /*
     for item in krate.module.items {
         if let syntax::ast::ItemKind::Mod(ref module) = item.node {

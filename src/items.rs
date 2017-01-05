@@ -8,6 +8,7 @@ pub enum Item {
     Typed(TypedItem),
     Fn(Function),
     Mod(Module),
+    Use,
 }
 
 #[derive(Default)]
@@ -15,7 +16,7 @@ pub struct Crate {
     pub name: String,
     pub span: Span,
 
-    pub module: Module, 
+    pub module: Module,
 }
 
 #[derive(Default)]

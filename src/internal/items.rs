@@ -10,7 +10,7 @@ pub fn crate_from_ast_crate(krate: &syntax::ast::Crate, sess: &syntax::parse::Pa
     Crate {
         span: internal::pos::span_from_ast_span(&krate.span, sess),
         module: mod_from_ast_mod(&krate.module, sess),
-        .. Default::default()
+        ..Default::default()
     }
 }
 
@@ -26,11 +26,13 @@ pub fn mod_from_ast_mod(module: &syntax::ast::Mod, sess: &syntax::parse::ParseSe
     Module {
         span: internal::pos::span_from_ast_span(&module.inner, sess),
         items: conv_items,
-        .. Default::default()
+        ..Default::default()
     }
 }
 
-pub fn item_from_ast_item(item: &syntax::ast::Item, sess: &syntax::parse::ParseSess) -> Option<Item> {
+pub fn item_from_ast_item(item: &syntax::ast::Item,
+                          sess: &syntax::parse::ParseSess)
+                          -> Option<Item> {
     // TODO: Find a way to simplify setting the name and span
     let name = (&item.ident.name.as_str()).to_string();
     let span = internal::pos::span_from_ast_span(&item.span, sess);
@@ -39,12 +41,14 @@ pub fn item_from_ast_item(item: &syntax::ast::Item, sess: &syntax::parse::ParseS
         // TODO: Complete definition
         syntax::ast::ItemKind::Fn(ref decl, _, _, _, _, ref block) => {
             let mut func = fn_from_ast_fn(decl, block, sess);
-            func.name = name; func.span = span;
+            func.name = name;
+            func.span = span;
             Some(Item::Fn(func))
         }
         syntax::ast::ItemKind::Mod(ref module) => {
-            let mut conv_module = mod_from_ast_mod(module, sess);;
-            conv_module.name = name; conv_module.span = span;
+            let mut conv_module = mod_from_ast_mod(module, sess);
+            conv_module.name = name;
+            conv_module.span = span;
             Some(Item::Mod(conv_module))
         }
         syntax::ast::ItemKind::Use(_) => {
@@ -55,12 +59,12 @@ pub fn item_from_ast_item(item: &syntax::ast::Item, sess: &syntax::parse::ParseS
     }
 }
 
-pub fn fn_from_ast_fn(decl: &syntax::ast::FnDecl, block: &syntax::ast::Block, sess: &syntax::parse::ParseSess) -> Function {
+pub fn fn_from_ast_fn(decl: &syntax::ast::FnDecl,
+                      block: &syntax::ast::Block,
+                      sess: &syntax::parse::ParseSess)
+                      -> Function {
     // TODO: Complete definition
-    Function {
-        body: block_from_ast_block(block, sess),
-        .. Default::default()
-    }
+    Function { body: block_from_ast_block(block, sess), ..Default::default() }
 }
 
 pub fn block_from_ast_block(block: &syntax::ast::Block, sess: &syntax::parse::ParseSess) -> Block {
@@ -70,9 +74,27 @@ pub fn block_from_ast_block(block: &syntax::ast::Block, sess: &syntax::parse::Pa
     }
 }
 
-pub fn statement_from_ast_stmt(stmt: &syntax::ast::Stmt, sess: &syntax::parse::ParseSess) -> Statement {
+pub fn statement_from_ast_stmt(stmt: &syntax::ast::Stmt,
+                               sess: &syntax::parse::ParseSess)
+                               -> Statement {
     // TODO: Complete definition
-    Statement {
-        span: internal::pos::span_from_ast_span(&stmt.span, sess),
+    match stmt.node {
+        syntax::ast::StmtKind::Local(ref local) => {
+            Statement::Local(
+                Local {
+                    span: internal::pos::span_from_ast_span(&local.span, sess),
+                    pattern: pat_from_ast_pat(&local.pat, sess),
+            })
+        }
+        _ => Statement::None,
+    }
+}
+
+pub fn pat_from_ast_pat(pat: &syntax::ast::Pat, sess: &syntax::parse::ParseSess) -> Pattern {
+    match pat.node {
+        syntax::ast::PatKind::Ident(_, ref ident, _) => {
+            Pattern::Ident(ident.node.name.as_str().to_string())
+        }
+        _ => Pattern::None,
     }
 }

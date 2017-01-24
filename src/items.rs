@@ -58,9 +58,22 @@ pub struct Block {
     pub statements: Vec<Statement>,
 }
 
-#[derive(Default)]
-pub struct Statement {
+pub enum Statement {
+    Local(Local),
+    // TODO: Remove
+    None,
+}
+
+pub struct Local {
     pub span: Span,
 
+    pub pattern: Pattern,
+
     // TODO: Complete definition
+}
+
+pub enum Pattern {
+    Ident(String),
+    // TODO: Remove
+    None,
 }

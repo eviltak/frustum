@@ -10,8 +10,8 @@ pub struct Span {
     pub file: String
 }
 
-// Copyright 2012-2013 The Rust Project Developers.
 // Position
+// Copyright 2012-2013 The Rust Project Developers.
 
 use std::ops::{Add, Sub};
 

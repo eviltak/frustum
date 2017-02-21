@@ -56,7 +56,7 @@ impl Session {
         let file_cache = file_loader.as_ref().file_cache.clone();
 
         let codemap = Rc::new(syntax::codemap::CodeMap::with_file_loader(file_loader));
-
+        
         let handler = syntax_errors::Handler::with_tty_emitter(syntax_errors::ColorConfig::Auto,
                                                                false,
                                                                false,

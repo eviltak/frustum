@@ -4,9 +4,9 @@ version = "0.0.1"
 authors = ["Arav Singhal <singhal.arav@gmail.com>"]
 
 [dependencies]
-syntex_syntax = "^0.56.0"
-syntex_pos = "^0.56.0"
-syntex_errors = "^0.56.0"
+syntex_syntax = "^0.58.0"
+syntex_pos = "^0.58.0"
+syntex_errors = "^0.58.0"
 
 [lib]
 name = "frustum"

@@ -24,7 +24,7 @@ impl FileCache {
         self.files
             .get(&path.to_str().unwrap_or("").to_string())
             .map(|s| s.clone())
-            .ok_or(io::Error::new(io::ErrorKind::NotFound, "File not found."))
+            .ok_or(io::Error::new(io::ErrorKind::NotFound, "File does not exist in file cache."))
     }
 
     pub fn new() -> FileCache {

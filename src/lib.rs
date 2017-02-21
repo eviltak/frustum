@@ -7,14 +7,14 @@ extern crate syntex_errors as syntax_errors;
 
 // Modules
 
-pub mod items;
 pub mod pos;
-pub mod parser;
 
 mod internal;
 mod session;
+mod cursor;
 mod fs;
 
 // Public uses
 
 pub use session::Session;
+pub use cursor::Cursor;

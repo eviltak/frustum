@@ -5,11 +5,17 @@ extern crate frustum;
 extern crate syntex_syntax as syntax;
 extern crate syntex_pos as syntax_pos;
 
+use syntax::ast::*;
+
 struct ItemVisitor;
 
-impl<'a> syntax::visit::Visitor<'a> for ItemVisitor {
-    fn visit_item(&mut self, b: &'a syntax::ast::Item) {
+impl<'ast> syntax::visit::Visitor<'ast> for ItemVisitor {
+    fn visit_item(&mut self, i: &'ast Item) {
         println!("Item visited");
+        syntax::visit::walk_item(self, i)
+    }
+    fn visit_fn(&mut self, fk: syntax::visit::FnKind<'ast>, fd: &'ast FnDecl, s: syntax_pos::Span, _: NodeId) {
+        println!("Fn visited");
     }
 }
 

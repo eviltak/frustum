@@ -7,7 +7,6 @@
 pub struct Span {
     pub start: Position,
     pub end: Position,
-    pub file: String
 }
 
 // Position

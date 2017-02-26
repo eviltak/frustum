@@ -10,6 +10,5 @@ pub fn span_from_ast_span(span: &syntax_pos::Span, sess: &syntax::parse::ParseSe
     Span {
         start: Position::from_u32(span.lo.0),
         end: Position::from_u32(span.hi.0),
-        file: code_map.span_to_filename(*span)
     }
 }

@@ -8,6 +8,7 @@ extern crate syntex_errors as syntax_errors;
 // Modules
 
 pub mod pos;
+pub mod visitor;
 
 mod internal;
 mod session;

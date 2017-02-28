@@ -37,10 +37,9 @@ impl SessionFileLoader {
 }
 
 pub struct Session {
-    // TODO: Complete definition
     pub crate_root: Option<String>,
 
-    parse_sess: syntax::parse::ParseSess,
+    pub parse_sess: syntax::parse::ParseSess,
     file_cache: Rc<RefCell<FileCache>>,
 }
 
